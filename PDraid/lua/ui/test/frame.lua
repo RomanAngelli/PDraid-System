@@ -74,8 +74,7 @@ local fill = vgui.Create( "DButton", panel)
  timer:SetTextInset(32, 0)
  if (fill.DoClick) then
    timer.started
- end
- if (timer.started) then
+  if timer.started then
     for i =1, remainder do
 	wait (1)
 	if TimeInMinutes > 9 then
