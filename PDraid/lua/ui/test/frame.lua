@@ -113,8 +113,10 @@ end
 		 
  if (second.DoClick) then
   timer.cancel()
-   end
+      end
+     end
+    end
+   end 
   end
  end
-end 
 concommand.Add("ui_frame", PDraid.Tests.Frame)
