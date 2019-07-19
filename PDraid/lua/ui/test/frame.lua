@@ -34,7 +34,6 @@ PDraid.Tests.Frame = function()
   lab:SetTextColor(PDraid.Theme.text.h2)
   lab:SetTextInset(32, 0)
   
- 
 
 local fill = vgui.Create( "DButton", panel)
  fill:SetText("Start PD Raid")
@@ -60,10 +59,63 @@ local fill = vgui.Create( "DButton", panel)
  second.DoClick = function ()
    print("/advert PD Raid has beed ended!")
  second:Remove()
-
  
+ 
+ local timer = vgui.Create("DLabel", panel)
+ local TimeInSeconds = 350
+ local TimeInMinutes = math.floor(TimeInSeconds/60)
+ local remainder = TimeInSeconds % 60
+ timer:SetText("00:00")
+ timer:SetSize (5, 50)
+ timer:SetPos(2, 1)
+ timer:SetFont("PDraid.Header")
+ timer:SizeToContentsX(120)
+ timer:SetTextColor(PDraid.Theme.text.h2)
+ timer:SetTextInset(32, 0)
+ if (fill.DoClick) then
+   timer.started
+ end
+ if (timer.started) then
+    for i =1, remainder do
+	wait (1)
+	if TimeInMinutes > 9 then
+	 if remainder - i < 10 then
+	    timer.Text = TimeInMinutes..":0"..remainder - i
+	   else
+	    timer.Text = TimeInMinutes..":"..remainder - i
+       end
+	else
+	   if remainder - i < 10 then
+	     timer.Text = "0"..TimeInMinutes..":0"..remainder - i
+	  else
+	     timer.Text = "0"..TimeInMinutes..":"..remainder - i
+       end
+	end
+end	
+    for i = 1, TimeInMinutes do
+      for i = 1, 60 do
+        wait(1)
+        if TimeInMinutes > 9 then
+           if 60 - i < 10 then
+             timer.Text = TimeInMinutes..":".."0"..(60-i) 
+			else
+		     timer.Text = TimeInMinutes..":"..(60-i)
+		   end
+  else
+      if 60 - i < 10 then
+  	     timer.Text = "0"..TimeInMinutes..":0"..(60-i)
+      else
+	     timer.Text = "0"..TimeInMinutes..":"..(60-i)
+	     end
+	  end
+   end
+   TimeInMinutes = TimeInMinutes - 1
+end
+		 
+ if (second.DoClick) then
+  timer.cancel()
+   end
   end
  end
 end 
 concommand.Add("ui_frame", PDraid.Tests.Frame)
- 
